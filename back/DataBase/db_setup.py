@@ -1,6 +1,6 @@
 import sqlite3
 
-conexao = sqlite3.connect("back/Database/database.db")
+conexao = sqlite3.connect("back/database/database.db")
 cursor = conexao.cursor()
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS usuario(
