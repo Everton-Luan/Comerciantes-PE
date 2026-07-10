@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from models.login_schema import LoginRequest
-from back.services.login_service import autenticar_usuario
+from services.login_service import autenticar_usuario
 
 router = APIRouter()
 
