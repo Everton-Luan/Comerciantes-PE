@@ -10,4 +10,4 @@ class ProdutoResumo(BaseModel):
 
 class ProdutoDetalhe(ProdutoResumo):
     telefone: str
-    local: str
+    local: str  
