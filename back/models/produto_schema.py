@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ProdutoResumo(BaseModel):
@@ -11,3 +11,11 @@ class ProdutoResumo(BaseModel):
 class ProdutoDetalhe(ProdutoResumo):
     telefone: str
     local: str  
+
+class ProdutoRequest(BaseModel):
+    nome: str = Field(..., min_length=1)
+    preco: float = Field(..., gt=0)
+    telefone: str = Field(..., min_length=1)
+    local: str = Field(..., min_length=1)
+    foto: str = Field(..., min_length=1)
+    usuarioId: int

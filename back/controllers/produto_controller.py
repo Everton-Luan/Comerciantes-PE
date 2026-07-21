@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from models.produto_schema import ProdutoResumo, ProdutoDetalhe
-from services.produto_service import listar_produtos, buscar_produto_por_id
+from models.produto_schema import *
+from services.produto_service import *
 
 router = APIRouter()
 
@@ -18,3 +18,7 @@ def get_produto(produto_id: int):
         raise HTTPException(status_code=404, detail="Produto não encontrado")
 
     return produto
+
+@router.post("/produtos", response_model=ProdutoDetalhe, status_code=201)
+def post_produto(dados: ProdutoRequest):
+    return criar_produto(dados.model_dump())
