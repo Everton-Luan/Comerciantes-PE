@@ -29,3 +29,21 @@ def buscar_produto_por_id(produto_id: int) -> dict | None:
         return None
 
     return dict(produto)
+
+def criar_produto(dados: dict) -> dict:
+    conexao = get_connection()
+    try:
+        cursor = conexao.cursor()
+        cursor.execute(
+            """
+            INSERT INTO produto (nome, preco, telefone, local, foto, usuarioId)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (dados["nome"], dados["preco"], dados["telefone"], dados["local"], dados["foto"], dados["usuarioId"])
+        )
+        conexao.commit()
+        novo_id = cursor.lastrowid
+    finally:
+        conexao.close()
+
+    return buscar_produto_por_id(novo_id)
