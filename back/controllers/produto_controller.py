@@ -22,3 +22,7 @@ def get_produto(produto_id: int):
 @router.post("/produtos", response_model=ProdutoDetalhe, status_code=201)
 def post_produto(dados: ProdutoRequest):
     return criar_produto(dados.model_dump())
+
+@router.get("/meus-produtos", response_model=list[ProdutoResumo])
+def get_meus_produtos(usuarioId: int):
+    return listar_produtos_usuario(usuarioId)

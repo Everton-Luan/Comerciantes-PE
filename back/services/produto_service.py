@@ -47,3 +47,17 @@ def criar_produto(dados: dict) -> dict:
         conexao.close()
 
     return buscar_produto_por_id(novo_id)
+
+def listar_produtos_usuario(usuario_id: int) -> list[dict]:
+    conexao = get_connection()
+    try:
+        cursor = conexao.cursor()
+        cursor.execute(
+            "SELECT id, nome, preco, foto FROM produto WHERE usuarioId = ?",
+            (usuario_id,)
+        )
+        produtos = cursor.fetchall()
+    finally:
+        conexao.close()
+
+    return [dict(produto) for produto in produtos]
