@@ -18,7 +18,7 @@ def buscar_produto_por_id(produto_id: int) -> dict | None:
     try:
         cursor = conexao.cursor()
         cursor.execute(
-            "SELECT id, nome, preco, foto, telefone, local FROM produto WHERE id = ?",
+            "SELECT id, nome, preco, foto, telefone, local, usuarioId FROM produto WHERE id = ?",
             (produto_id,)
         )
         produto = cursor.fetchone()
@@ -61,3 +61,21 @@ def listar_produtos_usuario(usuario_id: int) -> list[dict]:
         conexao.close()
 
     return [dict(produto) for produto in produtos]
+
+def atualizar_produto(produto_id: int, dados: dict) -> dict:
+    conexao = get_connection()
+    try:
+        cursor = conexao.cursor()
+        cursor.execute(
+            """
+            UPDATE produto
+            SET nome = ?, preco = ?, telefone = ?, local = ?, foto = ?
+            WHERE id = ?
+            """,
+            (dados["nome"], dados["preco"], dados["telefone"], dados["local"], dados["foto"], produto_id)
+        )
+        conexao.commit()
+    finally:
+        conexao.close()
+
+    return buscar_produto_por_id(produto_id)
