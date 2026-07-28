@@ -79,3 +79,12 @@ def atualizar_produto(produto_id: int, dados: dict) -> dict:
         conexao.close()
 
     return buscar_produto_por_id(produto_id)
+
+def excluir_produto(produto_id: int) -> None:
+    conexao = get_connection()
+    try:
+        cursor = conexao.cursor()
+        cursor.execute("DELETE FROM produto WHERE id = ?", (produto_id,))
+        conexao.commit()
+    finally:
+        conexao.close()
