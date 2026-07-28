@@ -38,3 +38,15 @@ def put_produto(produto_id: int, dados: ProdutoRequest):
         raise HTTPException(status_code=403, detail="Você não tem permissão para editar este produto")
 
     return atualizar_produto(produto_id, dados.model_dump())
+
+@router.delete("/produtos/{produto_id}", status_code=204)
+def delete_produto(produto_id: int, usuarioId: int):
+    produto_existente = buscar_produto_por_id(produto_id)
+
+    if produto_existente is None:
+        raise HTTPException(status_code=404, detail="Produto não encontrado")
+
+    if produto_existente["usuarioId"] != usuarioId:
+        raise HTTPException(status_code=403, detail="Você não tem permissão para excluir este produto")
+
+    excluir_produto(produto_id)
