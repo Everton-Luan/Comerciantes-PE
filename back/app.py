@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from controllers.login_controller import router as login_router
+from controllers.produto_controller import router as produto_router
 
 app = FastAPI(title="Comerciantes PE - API")
 
@@ -14,6 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(login_router)
+app.include_router(produto_router)
 
 
 @app.get("/")
