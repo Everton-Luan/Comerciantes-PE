@@ -1,6 +1,8 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { produto } from "../../types/produto";
+import { listarProdutos } from "../../services/produtoService";
 import "./home.css";
 
 const produtos = [
